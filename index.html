@@ -10,7 +10,6 @@
             --bg-dark: #000000;
             --card-dark: #121212;
             --primary-gold: #b37409;
-            --hover-gold: #915d05;
             --text-light: #ffffff;
             --text-muted: #aaaaaa;
             --border-color: #222222;
@@ -21,290 +20,75 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            padding-bottom: 75px;
+            margin: 0; padding: 0; padding-bottom: 75px;
             box-sizing: border-box;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .top-navbar {
             background-color: var(--card-dark);
             border-bottom: 1px solid var(--border-color);
             padding: 14px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .brand-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--primary-gold);
-            letter-spacing: 0.5px;
-        }
-
+        .brand-title { font-size: 18px; font-weight: 800; color: var(--primary-gold); }
+        
         .lang-toggle {
-            background: rgba(179, 116, 9, 0.15);
-            color: var(--primary-gold);
-            border: 1px solid var(--primary-gold);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
+            background: rgba(179, 116, 9, 0.15); color: var(--primary-gold);
+            border: 1px solid var(--primary-gold); padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;
         }
 
-        .view-section {
-            display: none;
-            padding: 16px;
-            animation: fadeIn 0.2s ease-in-out;
-        }
-
-        .view-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .view-section { display: none; padding: 16px; }
+        .view-section.active { display: block; }
 
         .user-card {
-            background-color: var(--card-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
+            background-color: var(--card-dark); border: 1px solid var(--border-color);
+            border-radius: 14px; padding: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px;
         }
 
         .avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary-gold), #5a3a04);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .user-meta h4 {
-            margin: 0 0 4px 0;
-            font-size: 16px;
+            width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary-gold), #5a3a04);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700;
         }
 
         .badge-premium {
-            background: rgba(11, 218, 81, 0.15);
-            color: var(--accent-green);
-            border: 1px solid var(--accent-green);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 700;
-            display: inline-block;
+            background: rgba(11, 218, 81, 0.15); color: var(--accent-green); border: 1px solid var(--accent-green);
+            padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;
         }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .metric-box { background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center; }
+        .metric-box div:first-child { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+        .metric-box div:last-child { font-size: 20px; font-weight: 700; color: var(--primary-gold); }
 
-        .metric-box {
-            background-color: var(--card-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px;
-            text-align: center;
-        }
+        .form-panel { background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+        select, textarea, input { width: 100%; background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-light); padding: 12px; border-radius: 8px; box-sizing: border-box; }
 
-        .metric-box div:first-child {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
+        .action-button { width: 100%; background-color: var(--primary-gold); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
-        .metric-box div:last-child {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary-gold);
-        }
+        /* ADVANCED SUPPORT CONVERSATIONAL TIMELINE CHAT GRID */
+        .ticket-chat-wrapper { background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-top: 16px; }
+        .ticket-thread-meta { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 10px; font-size: 13px; font-weight: 700; }
+        
+        .chat-bubble-stream { max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 5px; margin-bottom: 12px; }
+        .bubble { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
+        .bubble.customer { background-color: var(--primary-gold); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .bubble.support { background-color: #222222; color: #f5f5f5; align-self: flex-start; border-bottom-left-radius: 2px; }
 
-        .form-panel {
-            background-color: var(--card-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 20px;
-        }
+        .inline-chat-input-bar { display: flex; gap: 8px; }
+        .inline-chat-input-bar input { flex: 1; padding: 10px; }
+        .inline-chat-input-bar button { background-color: var(--primary-gold); color: white; border: none; padding: 0 16px; border-radius: 8px; font-weight: 700; }
 
-        .form-group {
-            margin-bottom: 14px;
-        }
+        .referral-banner { background: linear-gradient(135deg, #1c1303 0%, var(--card-dark) 100%); border: 1px solid var(--primary-gold); border-radius: 14px; padding: 20px; text-align: center; }
+        .referral-link-box { background-color: var(--bg-dark); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+        .referral-url { font-size: 12px; color: var(--primary-gold); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .copy-btn { background-color: var(--primary-gold); border: none; color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; }
 
-        label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        select, textarea {
-            width: 100%;
-            background-color: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            color: var(--text-light);
-            padding: 12px;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-gold);
-        }
-
-        .action-button {
-            width: 100%;
-            background-color: var(--primary-gold);
-            color: var(--text-light);
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .chat-history-container {
-            margin-top: 20px;
-        }
-
-        .chat-section-title {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .ticket-log-card {
-            background-color: var(--card-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
-        }
-
-        .ticket-log-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            margin-bottom: 6px;
-        }
-
-        .status-badge {
-            font-weight: 700;
-            border-radius: 4px;
-            padding: 1px 6px;
-        }
-
-        .status-open { background: rgba(179, 116, 9, 0.2); color: var(--primary-gold); }
-
-        .ticket-log-body {
-            font-size: 13px;
-            color: #dddddd;
-            line-height: 1.4;
-        }
-
-        .referral-banner {
-            background: linear-gradient(135deg, #1c1303 0%, var(--card-dark) 100%);
-            border: 1px solid var(--primary-gold);
-            border-radius: 14px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
-        .referral-link-box {
-            background-color: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 14px;
-            gap: 10px;
-        }
-
-        .referral-url {
-            font-size: 12px;
-            color: var(--primary-gold);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .copy-btn {
-            background-color: var(--primary-gold);
-            border: none;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background-color: var(--card-dark);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 200;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 6px 0;
-            width: 33.33%;
-            gap: 4px;
-        }
-
-        .nav-item.active {
-            color: var(--primary-gold);
-        }
-
-        .nav-icon {
-            font-size: 18px;
-        }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 64px; background-color: var(--card-dark); border-top: 1px solid var(--border-color); display: flex; align-items: center; z-index: 200; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); background: none; border: none; width: 33.33%; font-size: 11px; font-weight: 600; cursor: pointer; gap: 4px; }
+        .nav-item.active { color: var(--primary-gold); }
     </style>
 </head>
 <body>
@@ -318,11 +102,10 @@
         <div class="user-card">
             <div class="avatar" id="avatar-char">U</div>
             <div class="user-meta">
-                <h4 id="user-display-name">Al-faruk Customer</h4>
-                <span class="badge-premium" id="premium-status">Premium Active</span>
+                <h4 id="user-display-name">Loading Profile...</h4>
+                <span class="badge-premium" id="premium-status">Premium Verified</span>
             </div>
         </div>
-
         <div class="dashboard-grid">
             <div class="metric-box">
                 <div id="lbl-wallet-points">My Wallet Points</div>
@@ -336,208 +119,160 @@
     </div>
 
     <div id="view-support" class="view-section">
-        <div class="form-panel">
-            <form id="supportForm" onsubmit="submitTicketForm(event)">
+        <div class="form-panel" id="ticket-creation-pod">
+            <form id="supportForm" onsubmit="createNewTicket(event)">
                 <div class="form-group">
-                    <label id="lbl-issue-type">Issue Category</label>
-                    <select id="issueType" required>
-                        <option value="Technical Issue" id="opt-tech">Technical Issue</option>
-                        <option value="General Inquiry" id="opt-general">General Inquiry</option>
-                        <option value="Feedback" id="opt-feedback">Feedback</option>
+                    <label id="lbl-issue-type">Choose Category</label>
+                    <select id="issueType">
+                        <option value="Technical Issue">Technical Issue</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                        <option value="Feedback">Feedback</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label id="lbl-desc">Detailed Description</label>
-                    <textarea id="issueDescription" rows="4" placeholder="How can our agents help you today?..." required></textarea>
+                    <label id="lbl-desc">Message Description</label>
+                    <textarea id="issueDescription" rows="3" placeholder="Provide problem details..." required></textarea>
                 </div>
-                <button type="submit" class="action-button" id="btn-submit-ticket">Submit Request</button>
+                <button type="submit" class="action-button" id="btn-submit-ticket">Launch Ticket</button>
             </form>
         </div>
 
-        <div class="chat-history-container">
-            <div class="chat-section-title" id="lbl-chat-history">Recent Ticket Logs</div>
-            <div id="chat-history-list"></div>
-        </div>
+        <div id="active-chat-threads-hook"></div>
     </div>
 
     <div id="view-referrals" class="view-section">
         <div class="referral-banner">
             <h3 style="margin: 0 0 8px 0; color: var(--primary-gold);" id="lbl-ref-title">Invite Friends & Earn Points</h3>
-            <p style="margin: 0; font-size: 13px; color: var(--text-muted);" id="lbl-ref-desc">Earn 500 reward points for every friend who signs up using your invitation link!</p>
-            
+            <p style="margin:0; font-size:13px; color:var(--text-muted);" id="lbl-ref-desc">Earn 500 points instantly for every active community signup.</p>
             <div class="referral-link-box">
-                <div class="referral-url" id="referral-link-txt">Loading...</div>
-                <button class="copy-btn" onclick="copyReferralLink()" id="btn-copy">Copy Link</button>
+                <div class="referral-url" id="referral-link-txt">Generating Link...</div>
+                <button class="copy-btn" onclick="copyLink()" id="btn-copy">Copy</button>
             </div>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchView('dashboard', this)">
-            <span class="nav-icon">📊</span>
-            <span id="nav-lbl-dash">Dashboard</span>
-        </button>
-        <button class="nav-item" onclick="switchView('support', this)">
-            <span class="nav-icon">🛠️</span>
-            <span id="nav-lbl-supp">Support</span>
-        </button>
-        <button class="nav-item" onclick="switchView('referrals', this)">
-            <span class="nav-icon">🎁</span>
-            <span id="nav-lbl-ref">Referrals</span>
-        </button>
+        <button class="nav-item active" onclick="switchView('dashboard', this)"><span>📊</span><span id="nav-lbl-dash">Dashboard</span></button>
+        <button class="nav-item" onclick="switchView('support', this)"><span>🛠️</span><span id="nav-lbl-supp">Support</span></button>
+        <button class="nav-item" onclick="switchView('referrals', this)"><span>🎁</span><span id="nav-lbl-ref">Referrals</span></button>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.expand();
+        // CHANGE THIS BACKEND ENDPOINT EXACTLY TO MATCH YOUR PRODUCTION HOIST IP/URL (e.g., PythonAnywhere address)
+        const BACKEND_API_URL = "http://localhost:8080"; 
 
-        let currentLang = 'en';
-        let userId = "000000";
+        let userId = "9999999";
         let userName = "Al-faruk Customer";
-        let localTickets = [];
-        let userPoints = 0;
+        let currentLang = 'en';
 
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            const u = tg.initDataUnsafe.user;
-            userId = u.id.toString();
-            userName = `${u.first_name || ''} ${u.last_name || ''}`.trim();
+            userId = tg.initDataUnsafe.user.id.toString();
+            userName = `${tg.initDataUnsafe.user.first_name || ''} ${tg.initDataUnsafe.user.last_name || ''}`.trim();
         }
 
         document.getElementById('user-display-name').innerText = userName;
         document.getElementById('avatar-char').innerText = userName.charAt(0).toUpperCase();
         document.getElementById('referral-link-txt').innerText = `https://t.me/AlFarukSupportBot?start=ref_${userId}`;
 
-        // Initialize persistent storage fields securely
-        function loadSavedPersistentData() {
-            const savedTickets = localStorage.getItem(`alfaruk_tickets_${userId}`);
-            localTickets = savedTickets ? JSON.parse(savedTickets) : [];
-            
-            const savedPoints = localStorage.getItem(`alfaruk_points_${userId}`);
-            userPoints = savedPoints ? parseInt(savedPoints) : 0;
-
-            document.getElementById('val-points').innerText = `${userPoints} pts`;
-            document.getElementById('val-tickets').innerText = localTickets.length;
-            renderTicketLogs();
+        // Long-polling fetch synchronization wrapper to keep communication channels up to date live
+        async function synchroniseEcosystemState() {
+            try {
+                const res = await fetch(`${BACKEND_API_URL}/api/user/${userId}`);
+                const data = await res.json();
+                
+                document.getElementById('val-points').innerText = `${data.points} pts`;
+                document.getElementById('val-tickets').innerText = data.tickets.filter(t => t.status === "Open").length;
+                
+                renderLiveConversations(data.tickets);
+            } catch (e) { console.error("Synchronization delay: ", e); }
         }
 
-        function renderTicketLogs() {
-            const container = document.getElementById('chat-history-list');
-            if (localTickets.length === 0) {
-                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:20px;">No tickets submitted yet.</div>`;
+        function renderLiveConversations(tickets) {
+            const container = document.getElementById('active-chat-threads-hook');
+            if (!tickets || tickets.length === 0) {
+                container.innerHTML = "";
+                document.getElementById('ticket-creation-pod').style.display = "block";
                 return;
             }
-            container.innerHTML = localTickets.map(t => `
-                <div class="ticket-log-card">
-                    <div class="ticket-log-header">
-                        <span style="color: var(--primary-gold); font-weight: 700;">${t.category}</span>
-                        <span class="status-badge status-open">Sent</span>
+
+            // If an open conversation thread exists, minimize the input form panel to prevent duplicates
+            const activeOpen = tickets.find(t => t.status === "Open");
+            if (activeOpen) {
+                document.getElementById('ticket-creation-pod').style.display = "none";
+                
+                container.innerHTML = `
+                    <div class="ticket-chat-wrapper">
+                        <div class="ticket-thread-meta">
+                            <span>💬 ${activeOpen.category}</span>
+                            <span style="color: var(--primary-gold);">STATUS: ACTIVE</span>
+                        </div>
+                        <div class="chat-bubble-stream" id="bubble-scroller">
+                            ${activeOpen.messages.map(m => `
+                                <div class="bubble ${m.sender}">${m.text}</div>
+                            `).join('')}
+                        </div>
+                        <div class="inline-chat-input-bar">
+                            <input type="text" id="followUpText" placeholder="Type reply message here..." />
+                            <button onclick="submitFollowUpReply('${activeOpen.category}')">Send</button>
+                        </div>
                     </div>
-                    <div class="ticket-log-body">${t.text}</div>
-                </div>
-            `).join('');
+                `;
+                
+                // Auto-scroll conversational feed to the bottommost message bubble
+                const pane = document.getElementById('bubble-scroller');
+                if (pane) pane.scrollTop = pane.scrollHeight;
+            } else {
+                document.getElementById('ticket-creation-pod').style.display = "block";
+                container.innerHTML = "";
+            }
         }
 
-        function submitTicketForm(event) {
+        async function createNewTicket(event) {
             event.preventDefault();
-            const cat = document.getElementById('issueType').value;
+            const type = document.getElementById('issueType').value;
             const desc = document.getElementById('issueDescription').value;
 
-            // Save to persistent localStorage on the device
-            localTickets.unshift({ category: cat, text: desc, timestamp: Date.now() });
-            localStorage.setItem(`alfaruk_tickets_${userId}`, JSON.stringify(localTickets));
+            await fetch(`${BACKEND_API_URL}/api/ticket/submit`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, user_name: userName, issue_type: type, description: desc })
+            });
 
-            // Transmit information bundle to backend python tracking thread
-            const payload = {
-                language: currentLang,
-                issue_type: cat,
-                description: desc
-            };
-            tg.sendData(JSON.stringify(payload));
-
-            // Reset field elements instantly without experiencing flickering glitches
             document.getElementById('issueDescription').value = "";
-            document.getElementById('val-tickets').innerText = localTickets.length;
-            renderTicketLogs();
+            synchroniseEcosystemState();
         }
 
-        const translations = {
-            en: {
-                brand: "AL-FARUK HUB", langBtn: "አማርኛ", status: "Premium Member",
-                wallet: "My Wallet Points", openTickets: "Open Tickets",
-                lblIssue: "Issue Category", optTech: "Technical Issue", optGeneral: "General Inquiry",
-                optFeedback: "Feedback", lblDesc: "Detailed Description", placeholderDesc: "How can our agents help you today?...",
-                btnSubmit: "Submit Request", chatTitle: "Recent Ticket Logs", refTitle: "Invite Friends & Earn Points",
-                refDesc: "Earn 500 reward points for every friend who signs up using your invitation link!",
-                btnCopy: "Copy Link", navDash: "Dashboard", navSupp: "Support", navRef: "Referrals"
-            },
-            am: {
-                brand: "አል-ፋሩቅ ማዕከል", langBtn: "English", status: "ፕሪሚየም አባል",
-                wallet: "የኪስ ቦርሳ ነጥቦች", openTickets: "ክፍት ቅሬታዎች",
-                lblIssue: "የችግሩ አይነት", optTech: "ቴክኒካዊ ችግር (Technical Issue)", optGeneral: "አጠቃላይ ጥያቄ (General Inquiry)",
-                optFeedback: "አስተያየት (Feedback)", lblDesc: "ዝርዝር መግለጫ", placeholderDesc: "ዛሬ እንዴት ልንረዳዎ እንችላለን?...",
-                btnSubmit: "ጥያቄውን ላክ", chatTitle: "የቅርብ ጊዜ የጥያቄ መዝገቦች", refTitle: "ጓደኞችን ይጋብዙ እና ነጥቦችን ይሰብስቡ",
-                refDesc: "በእርስዎ የግብዣ ሊንክ ተጠቅሞ ለሚመዘገብ ለእያንዳንዱ ሰው 500 የሽልማት ነጥብ ያግኙ!",
-                btnCopy: "ሊንኩን ኮፒ አድርግ", navDash: "ዳሽቦርድ", navSupp: "ድጋፍ", navRef: "ሪፈራል"
-            }
-        };
+        async function submitFollowUpReply(category) {
+            const inputField = document.getElementById('followUpText');
+            const text = inputField.value.trim();
+            if (!text) return;
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'am' : 'en';
-            updateUIStrings();
-        }
+            await fetch(`${BACKEND_API_URL}/api/ticket/submit`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, user_name: userName, issue_type: category, description: text })
+            });
 
-        function updateUIStrings() {
-            const t = translations[currentLang];
-            document.getElementById('app-brand').innerText = t.brand;
-            document.getElementById('lang-btn').innerText = t.langBtn;
-            document.getElementById('premium-status').innerText = t.status;
-            document.getElementById('lbl-wallet-points').innerText = t.wallet;
-            document.getElementById('lbl-active-tickets').innerText = t.openTickets;
-            document.getElementById('lbl-issue-type').innerText = t.lblIssue;
-            document.getElementById('opt-tech').innerText = t.optTech;
-            document.getElementById('opt-general').innerText = t.optGeneral;
-            document.getElementById('opt-feedback').innerText = t.optFeedback;
-            document.getElementById('lbl-desc').innerText = t.lblDesc;
-            document.getElementById('issueDescription').placeholder = t.placeholderDesc;
-            document.getElementById('btn-submit-ticket').innerText = t.btnSubmit;
-            document.getElementById('lbl-chat-history').innerText = t.chatTitle;
-            document.getElementById('lbl-ref-title').innerText = t.refTitle;
-            document.getElementById('lbl-ref-desc').innerText = t.refDesc;
-            document.getElementById('btn-copy').innerText = t.btnCopy;
-            document.getElementById('nav-lbl-dash').innerText = t.navDash;
-            document.getElementById('nav-lbl-supp').innerText = t.navSupp;
-            document.getElementById('nav-lbl-ref').innerText = t.navRef;
+            inputField.value = "";
+            synchroniseEcosystemState();
         }
 
         function switchView(viewId, element) {
-            document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(`view-${viewId}`).classList.add('active');
             element.classList.add('active');
         }
 
-        function copyReferralLink() {
-            const urlText = document.getElementById('referral-link-txt').innerText;
-            navigator.clipboard.writeText(urlText).then(() => {
-                const btn = document.getElementById('btn-copy');
-                btn.innerText = currentLang === 'en' ? "Copied!" : "ኮፒ ተደርጓል!";
-                setTimeout(() => { btn.innerText = translations[currentLang].btnCopy; }, 2000);
-            });
+        function copyLink() {
+            navigator.clipboard.writeText(document.getElementById('referral-link-txt').innerText);
+            alert("Referral link copied!");
         }
 
-        // Catch points adjustments issued live from telegram service
-        window.addEventListener('message', function(event) {
-            try {
-                const data = JSON.parse(event.data);
-                if (data.type === 'points_update') {
-                    localStorage.setItem(`alfaruk_points_${userId}`, data.points);
-                    document.getElementById('val-points').innerText = `${data.points} pts`;
-                }
-            } catch(e){}
-        });
-
-        updateUIStrings();
-        loadSavedPersistentData();
+        // Run recurring checks every 3 seconds to pull live agent responses instantly onto the dashboard
+        setInterval(synchroniseEcosystemState, 3000);
+        synchroniseEcosystemState();
     </script>
 </body>
 </html>
