@@ -23,13 +23,12 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            padding-bottom: 75px; /* Space for the bottom navigation bar */
+            padding-bottom: 75px;
             box-sizing: border-box;
             -webkit-user-select: none;
             user-select: none;
         }
 
-        /* Top Header Navigation */
         .top-navbar {
             background-color: var(--card-dark);
             border-bottom: 1px solid var(--border-color);
@@ -60,11 +59,10 @@
             cursor: pointer;
         }
 
-        /* Content Views layout setup */
         .view-section {
             display: none;
             padding: 16px;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.2s ease-in-out;
         }
 
         .view-section.active {
@@ -72,11 +70,10 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Profile & Metric Cards */
         .user-card {
             background-color: var(--card-dark);
             border: 1px solid var(--border-color);
@@ -143,7 +140,6 @@
             color: var(--primary-gold);
         }
 
-        /* Form Styling Elements */
         .form-panel {
             background-color: var(--card-dark);
             border: 1px solid var(--border-color);
@@ -191,11 +187,6 @@
             cursor: pointer;
         }
 
-        .action-button:hover {
-            background-color: var(--hover-gold);
-        }
-
-        /* Support Ticket Logs Chat Timeline */
         .chat-history-container {
             margin-top: 20px;
         }
@@ -230,7 +221,6 @@
         }
 
         .status-open { background: rgba(179, 116, 9, 0.2); color: var(--primary-gold); }
-        .status-resolved { background: rgba(11, 218, 81, 0.2); color: var(--accent-green); }
 
         .ticket-log-body {
             font-size: 13px;
@@ -238,7 +228,6 @@
             line-height: 1.4;
         }
 
-        /* Referral System Styling Elements */
         .referral-banner {
             background: linear-gradient(135deg, #1c1303 0%, var(--card-dark) 100%);
             border: 1px solid var(--primary-gold);
@@ -277,10 +266,8 @@
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            white-space: nowrap;
         }
 
-        /* Bottom Fixed Navigation Bar Toolbar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -339,7 +326,7 @@
         <div class="dashboard-grid">
             <div class="metric-box">
                 <div id="lbl-wallet-points">My Wallet Points</div>
-                <div id="val-points">3400 pts</div>
+                <div id="val-points">0 pts</div>
             </div>
             <div class="metric-box">
                 <div id="lbl-active-tickets">Open Tickets</div>
@@ -369,27 +356,17 @@
 
         <div class="chat-history-container">
             <div class="chat-section-title" id="lbl-chat-history">Recent Ticket Logs</div>
-            <div id="chat-history-list">
-                <div class="ticket-log-card">
-                    <div class="ticket-log-header">
-                        <span style="color: var(--primary-gold); font-weight: 700;">#01 - Technical Issue</span>
-                        <span class="status-badge status-open">Open</span>
-                    </div>
-                    <div class="ticket-log-body">
-                        Welcome to the newly designed portal! Submit a ticket above to initialize logging.
-                    </div>
-                </div>
-            </div>
+            <div id="chat-history-list"></div>
         </div>
     </div>
 
     <div id="view-referrals" class="view-section">
         <div class="referral-banner">
             <h3 style="margin: 0 0 8px 0; color: var(--primary-gold);" id="lbl-ref-title">Invite Friends & Earn Points</h3>
-            <p style="margin: 0; font-size: 13px; color: var(--text-muted);" id="lbl-ref-desc">Help grow our community. Earn 500 reward points for every friend who signs up using your invitation handle link!</p>
+            <p style="margin: 0; font-size: 13px; color: var(--text-muted);" id="lbl-ref-desc">Earn 500 reward points for every friend who signs up using your invitation link!</p>
             
             <div class="referral-link-box">
-                <div class="referral-url" id="referral-link-txt">https://t.me/AlFarukSupportBot?start=ref_12345</div>
+                <div class="referral-url" id="referral-link-txt">Loading...</div>
                 <button class="copy-btn" onclick="copyReferralLink()" id="btn-copy">Copy Link</button>
             </div>
         </div>
@@ -413,24 +390,75 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-        tg.ready();
 
         let currentLang = 'en';
-        let userId = "12345678";
+        let userId = "000000";
         let userName = "Al-faruk Customer";
+        let localTickets = [];
+        let userPoints = 0;
 
-        // Extract native credentials from Telegram
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             const u = tg.initDataUnsafe.user;
-            userId = u.id;
+            userId = u.id.toString();
             userName = `${u.first_name || ''} ${u.last_name || ''}`.trim();
-            document.getElementById('user-display-name').innerText = userName;
-            document.getElementById('avatar-char').innerText = userName.charAt(0).toUpperCase();
         }
 
-        // Generate specific unique referral link dynamically
-        const generatedRefLink = `https://t.me/AlFarukSupportBot?start=ref_${userId}`;
-        document.getElementById('referral-link-txt').innerText = generatedRefLink;
+        document.getElementById('user-display-name').innerText = userName;
+        document.getElementById('avatar-char').innerText = userName.charAt(0).toUpperCase();
+        document.getElementById('referral-link-txt').innerText = `https://t.me/AlFarukSupportBot?start=ref_${userId}`;
+
+        // Initialize persistent storage fields securely
+        function loadSavedPersistentData() {
+            const savedTickets = localStorage.getItem(`alfaruk_tickets_${userId}`);
+            localTickets = savedTickets ? JSON.parse(savedTickets) : [];
+            
+            const savedPoints = localStorage.getItem(`alfaruk_points_${userId}`);
+            userPoints = savedPoints ? parseInt(savedPoints) : 0;
+
+            document.getElementById('val-points').innerText = `${userPoints} pts`;
+            document.getElementById('val-tickets').innerText = localTickets.length;
+            renderTicketLogs();
+        }
+
+        function renderTicketLogs() {
+            const container = document.getElementById('chat-history-list');
+            if (localTickets.length === 0) {
+                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:20px;">No tickets submitted yet.</div>`;
+                return;
+            }
+            container.innerHTML = localTickets.map(t => `
+                <div class="ticket-log-card">
+                    <div class="ticket-log-header">
+                        <span style="color: var(--primary-gold); font-weight: 700;">${t.category}</span>
+                        <span class="status-badge status-open">Sent</span>
+                    </div>
+                    <div class="ticket-log-body">${t.text}</div>
+                </div>
+            `).join('');
+        }
+
+        function submitTicketForm(event) {
+            event.preventDefault();
+            const cat = document.getElementById('issueType').value;
+            const desc = document.getElementById('issueDescription').value;
+
+            // Save to persistent localStorage on the device
+            localTickets.unshift({ category: cat, text: desc, timestamp: Date.now() });
+            localStorage.setItem(`alfaruk_tickets_${userId}`, JSON.stringify(localTickets));
+
+            // Transmit information bundle to backend python tracking thread
+            const payload = {
+                language: currentLang,
+                issue_type: cat,
+                description: desc
+            };
+            tg.sendData(JSON.stringify(payload));
+
+            // Reset field elements instantly without experiencing flickering glitches
+            document.getElementById('issueDescription').value = "";
+            document.getElementById('val-tickets').innerText = localTickets.length;
+            renderTicketLogs();
+        }
 
         const translations = {
             en: {
@@ -439,7 +467,7 @@
                 lblIssue: "Issue Category", optTech: "Technical Issue", optGeneral: "General Inquiry",
                 optFeedback: "Feedback", lblDesc: "Detailed Description", placeholderDesc: "How can our agents help you today?...",
                 btnSubmit: "Submit Request", chatTitle: "Recent Ticket Logs", refTitle: "Invite Friends & Earn Points",
-                refDesc: "Help grow our community. Earn 500 reward points for every friend who signs up using your invitation link!",
+                refDesc: "Earn 500 reward points for every friend who signs up using your invitation link!",
                 btnCopy: "Copy Link", navDash: "Dashboard", navSupp: "Support", navRef: "Referrals"
             },
             am: {
@@ -448,7 +476,7 @@
                 lblIssue: "የችግሩ አይነት", optTech: "ቴክኒካዊ ችግር (Technical Issue)", optGeneral: "አጠቃላይ ጥያቄ (General Inquiry)",
                 optFeedback: "አስተያየት (Feedback)", lblDesc: "ዝርዝር መግለጫ", placeholderDesc: "ዛሬ እንዴት ልንረዳዎ እንችላለን?...",
                 btnSubmit: "ጥያቄውን ላክ", chatTitle: "የቅርብ ጊዜ የጥያቄ መዝገቦች", refTitle: "ጓደኞችን ይጋብዙ እና ነጥቦችን ይሰብስቡ",
-                refDesc: "ማህበረሰባችንን ለማሳደግ ያግዙ። በእርስዎ የግብዣ ሊንክ ተጠቅሞ ለሚመዘገብ ለእያንዳንዱ ሰው 500 የሽልማት ነጥብ ያግኙ!",
+                refDesc: "በእርስዎ የግብዣ ሊንክ ተጠቅሞ ለሚመዘገብ ለእያንዳንዱ ሰው 500 የሽልማት ነጥብ ያግኙ!",
                 btnCopy: "ሊንኩን ኮፒ አድርግ", navDash: "ዳሽቦርድ", navSupp: "ድጋፍ", navRef: "ሪፈራል"
             }
         };
@@ -484,7 +512,6 @@
         function switchView(viewId, element) {
             document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            
             document.getElementById(`view-${viewId}`).classList.add('active');
             element.classList.add('active');
         }
@@ -492,48 +519,25 @@
         function copyReferralLink() {
             const urlText = document.getElementById('referral-link-txt').innerText;
             navigator.clipboard.writeText(urlText).then(() => {
-                const nativeCopyBtn = document.getElementById('btn-copy');
-                nativeCopyBtn.innerText = currentLang === 'en' ? "Copied!" : "ኮፒ ተደርጓል!";
-                setTimeout(() => { nativeCopyBtn.innerText = translations[currentLang].btnCopy; }, 2000);
+                const btn = document.getElementById('btn-copy');
+                btn.innerText = currentLang === 'en' ? "Copied!" : "ኮፒ ተደርጓል!";
+                setTimeout(() => { btn.innerText = translations[currentLang].btnCopy; }, 2000);
             });
         }
 
-        function submitTicketForm(event) {
-            event.preventDefault();
-            const cat = document.getElementById('issueType').value;
-            const desc = document.getElementById('issueDescription').value;
+        // Catch points adjustments issued live from telegram service
+        window.addEventListener('message', function(event) {
+            try {
+                const data = JSON.parse(event.data);
+                if (data.type === 'points_update') {
+                    localStorage.setItem(`alfaruk_points_${userId}`, data.points);
+                    document.getElementById('val-points').innerText = `${data.points} pts`;
+                }
+            } catch(e){}
+        });
 
-            // Build payload package configuration package data
-            const ticketData = {
-                language: currentLang,
-                issue_type: cat,
-                description: desc,
-                user_id: userId,
-                user_name: userName
-            };
-
-            // Post values payload natively back inside telegram engine loop cleanly
-            tg.sendData(JSON.stringify(ticketData));
-            
-            // Append view immediately on client storage simulation records
-            const historyList = document.getElementById('chat-history-list');
-            const itemHTML = `
-                <div class="ticket-log-card">
-                    <div class="ticket-log-header">
-                        <span style="color: var(--primary-gold); font-weight: 700;"># New - ${cat}</span>
-                        <span class="status-badge status-open">Sent</span>
-                    </div>
-                    <div class="ticket-log-body">${desc}</div>
-                </div>`;
-            historyList.insertAdjacentHTML('afterbegin', itemHTML);
-            document.getElementById('issueDescription').value = "";
-            
-            // Update counting visualization markers
-            document.getElementById('val-tickets').innerText = "1";
-        }
-
-        // Initialize display configuration defaults
         updateUIStrings();
+        loadSavedPersistentData();
     </script>
 </body>
 </html>
