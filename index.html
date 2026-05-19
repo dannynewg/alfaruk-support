@@ -16,7 +16,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background-color: var(--tg-theme-bg-color, var(--bg-color));
             color: var(--tg-theme-text-color, var(--text-color));
             margin: 0;
@@ -56,12 +56,6 @@
             cursor: pointer;
             font-size: 13px;
             font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .lang-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
         }
 
         .form-group {
@@ -84,13 +78,20 @@
             background-color: var(--tg-theme-secondary-bg-color, var(--input-bg));
             color: var(--tg-theme-text-color, var(--text-color));
             font-size: 15px;
-            transition: border-color 0.2s;
         }
 
         select:focus, textarea:focus, input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(179, 116, 9, 0.15);
+        }
+
+        .hidden-info {
+            background-color: rgba(179, 116, 9, 0.08);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--primary-color);
         }
 
         .submit-btn {
@@ -104,11 +105,6 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
-            transition: background-color 0.2s;
-        }
-
-        .submit-btn:hover {
-            background-color: var(--primary-hover);
         }
     </style>
 </head>
@@ -117,6 +113,10 @@
         <div class="header">
             <div class="logo-title" id="app-title">Al-faruk Support</div>
             <button class="lang-btn" id="lang-toggle" onclick="toggleLanguage()">አማርኛ</button>
+        </div>
+
+        <div class="hidden-info" id="user-badge">
+            Connecting safe profile connection...
         </div>
         
         <form id="support-form" onsubmit="handleSubmit(event)">
@@ -134,45 +134,48 @@
                 <textarea id="description" rows="5" placeholder="Describe your inquiry here..." required></textarea>
             </div>
             
-            <div class="form-group">
-                <label id="lbl-contact" for="contact">Phone Number (Optional)</label>
-                <input type="tel" id="contact" placeholder="+251...">
-            </div>
-            
             <button type="submit" class="submit-btn" id="btn-submit">Submit Request</button>
         </form>
     </div>
 
     <script>
-        // Initialize Telegram WebApp SDK
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Opens the Mini App in full-height screen mode
+        tg.expand();
 
         let currentLang = 'en';
+        let automaticUsername = "Not Provided";
+        let automaticName = "User";
+
+        // Extract credentials implicitly provided by Telegram safe container context
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            const user = tg.initDataUnsafe.user;
+            automaticName = `${user.first_name || ''} ${user.last_name || ''}`.trim();
+            automaticUsername = user.username ? `@${user.username}` : "No Username Set";
+        }
 
         const translations = {
             en: {
                 title: "Al-faruk Support",
                 langBtn: "አማርኛ",
+                badge: `Authenticated as: <b>${automaticName}</b> (${automaticUsername})`,
                 lblIssue: "Issue Type",
                 optTech: "Technical Issue",
                 optGeneral: "General Inquiry",
                 optFeedback: "Feedback",
                 lblDesc: "Description",
                 placeholderDesc: "Describe your inquiry here...",
-                lblContact: "Phone Number (Optional)",
                 btnSubmit: "Submit Request"
             },
             am: {
                 title: "የአል-ፋሩቅ ድጋፍ",
                 langBtn: "English",
+                badge: `የተገናኘው አካል: <b>${automaticName}</b> (${automaticUsername})`,
                 lblIssue: "የችግሩ አይነት",
                 optTech: "ቴክኒካዊ ችግር (Technical Issue)",
                 optGeneral: "አጠቃላይ ጥያቄ (General Inquiry)",
                 optFeedback: "አስተያየት (Feedback)",
                 lblDesc: "ዝርዝር መግለጫ",
                 placeholderDesc: "እባክዎን ፍላጎትዎን ወይም ችግርዎን እዚህ ይግለጹ...",
-                lblContact: "ስልክ ቁጥር (ከተፈለገ)",
                 btnSubmit: "ጥያቄውን ላክ"
             }
         };
@@ -186,13 +189,13 @@
             const t = translations[currentLang];
             document.getElementById('app-title').innerText = t.title;
             document.getElementById('lang-toggle').innerText = t.langBtn;
+            document.getElementById('user-badge').innerHTML = t.badge;
             document.getElementById('lbl-issue-type').innerText = t.lblIssue;
             document.getElementById('opt-tech').innerText = t.optTech;
             document.getElementById('opt-general').innerText = t.optGeneral;
             document.getElementById('opt-feedback').innerText = t.optFeedback;
             document.getElementById('lbl-description').innerText = t.lblDesc;
             document.getElementById('description').placeholder = t.placeholderDesc;
-            document.getElementById('lbl-contact').innerText = t.lblContact;
             document.getElementById('btn-submit').innerText = t.btnSubmit;
         }
 
@@ -201,15 +204,17 @@
             
             const data = {
                 language: currentLang,
+                username_extracted: automaticUsername,
                 issue_type: document.getElementById('issue-type').value,
-                description: document.getElementById('description').value,
-                contact: document.getElementById('contact').value || "Not Provided"
+                description: document.getElementById('description').value
             };
 
-            // Safeguard to pass structured string natively back to the Python script
             tg.sendData(JSON.stringify(data));
             tg.close();
         }
+
+        // Run UI allocation on initialization startup
+        updateUI();
     </script>
 </body>
 </html>
