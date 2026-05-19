@@ -10,6 +10,7 @@
             --bg-dark: #000000;
             --card-dark: #121212;
             --primary-gold: #b37409;
+            --hover-gold: #d48f15;
             --text-light: #ffffff;
             --text-muted: #aaaaaa;
             --border-color: #222222;
@@ -20,75 +21,129 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
-            margin: 0; padding: 0; padding-bottom: 75px;
+            margin: 0; padding: 0; padding-bottom: 85px;
             box-sizing: border-box;
+            overflow-x: hidden;
         }
 
+        /* Top Header Navbar */
         .top-navbar {
             background-color: var(--card-dark);
             border-bottom: 1px solid var(--border-color);
             padding: 14px 16px;
             display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
         }
 
-        .brand-title { font-size: 18px; font-weight: 800; color: var(--primary-gold); }
+        .brand-title { font-size: 18px; font-weight: 800; color: var(--primary-gold); letter-spacing: 0.5px; }
         
         .lang-toggle {
             background: rgba(179, 116, 9, 0.15); color: var(--primary-gold);
-            border: 1px solid var(--primary-gold); padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;
+            border: 1px solid var(--primary-gold); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer;
+            transition: all 0.2s ease;
         }
+        .lang-toggle:active { transform: scale(0.95); background: rgba(179, 116, 9, 0.3); }
 
-        .view-section { display: none; padding: 16px; }
+        /* Views Configuration */
+        .view-section { display: none; padding: 16px; animation: slideUp 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
         .view-section.active { display: block; }
 
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero User Panel Profile */
         .user-card {
-            background-color: var(--card-dark); border: 1px solid var(--border-color);
-            border-radius: 14px; padding: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px;
+            background: linear-gradient(135deg, var(--card-dark) 0%, #080808 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 16px;
         }
 
         .avatar {
-            width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary-gold), #5a3a04);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700;
+            width: 56px; height: 56px; background: linear-gradient(135deg, var(--primary-gold), #5a3a04);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800;
+            box-shadow: 0 4px 10px rgba(179, 116, 9, 0.2);
         }
 
+        .user-meta h4 { margin: 0 0 6px 0; font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
         .badge-premium {
-            background: rgba(11, 218, 81, 0.15); color: var(--accent-green); border: 1px solid var(--accent-green);
-            padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;
+            background: rgba(11, 218, 81, 0.12); color: var(--accent-green); border: 1px solid rgba(11, 218, 81, 0.3);
+            padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; display: inline-block;
         }
 
-        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-        .metric-box { background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center; }
-        .metric-box div:first-child { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
-        .metric-box div:last-child { font-size: 20px; font-weight: 700; color: var(--primary-gold); }
-
-        .form-panel { background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px; }
-        .form-group { margin-bottom: 14px; }
-        label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
-        select, textarea, input { width: 100%; background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-light); padding: 12px; border-radius: 8px; box-sizing: border-box; }
-
-        .action-button { width: 100%; background-color: var(--primary-gold); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-
-        /* ADVANCED SUPPORT CONVERSATIONAL TIMELINE CHAT GRID */
-        .ticket-chat-wrapper { background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-top: 16px; }
-        .ticket-thread-meta { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 10px; font-size: 13px; font-weight: 700; }
+        /* Interactive Clickable Grid Cards */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
         
-        .chat-bubble-stream { max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 5px; margin-bottom: 12px; }
-        .bubble { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
+        .metric-box { 
+            background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px; text-align: center; 
+            cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+        }
+        .metric-box::after {
+            content: '➔'; position: absolute; bottom: 8px; right: 12px; font-size: 11px; color: var(--primary-gold); opacity: 0.4; transition: all 0.2s;
+        }
+        .metric-box:hover, .metric-box:active {
+            border-color: var(--primary-gold); background-color: #161616; transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(179, 116, 9, 0.1);
+        }
+        .metric-box:active { transform: scale(0.97); }
+        .metric-box:hover::after { opacity: 1; transform: translateX(2px); }
+        
+        .metric-box div:first-child { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-box div:last-child { font-size: 22px; font-weight: 800; color: var(--primary-gold); }
+
+        /* Support Input & Panels Form */
+        .form-panel { background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+        
+        select, textarea, input { 
+            width: 100%; background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-light); 
+            padding: 14px; border-radius: 10px; box-sizing: border-box; font-size: 14px; transition: border 0.2s;
+        }
+        select:focus, textarea:focus, input:focus { outline: none; border-color: var(--primary-gold); }
+
+        .action-button { 
+            width: 100%; background: linear-gradient(135deg, var(--primary-gold) 0%, #915d05 100%); color: white; 
+            border: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; 
+        }
+        .action-button:active { transform: scale(0.98); opacity: 0.9; }
+
+        /* Premium Conversation Thread Interface */
+        .ticket-chat-wrapper { background-color: var(--card-dark); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-top: 16px; }
+        .ticket-thread-meta { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 14px; font-size: 13px; font-weight: 700; }
+        
+        .chat-bubble-stream { 
+            max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 5px; margin-bottom: 14px;
+            scroll-behavior: smooth;
+        }
+        /* Custom styling scrollbar asset track */
+        .chat-bubble-stream::-webkit-scrollbar { width: 4px; }
+        .chat-bubble-stream::-webkit-scrollbar-thumb { background-color: #2c2c2c; border-radius: 4px; }
+
+        .bubble { max-width: 82%; padding: 11px 15px; border-radius: 16px; font-size: 13.5px; line-height: 1.45; word-wrap: break-word; animation: bubblePop 0.2s ease-out; }
+        @keyframes bubblePop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
         .bubble.customer { background-color: var(--primary-gold); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .bubble.support { background-color: #222222; color: #f5f5f5; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .bubble.support { background-color: #222222; color: #f5f5f5; align-self: flex-start; border-bottom-left-radius: 2px; border-left: 3px solid var(--primary-gold); }
 
-        .inline-chat-input-bar { display: flex; gap: 8px; }
-        .inline-chat-input-bar input { flex: 1; padding: 10px; }
-        .inline-chat-input-bar button { background-color: var(--primary-gold); color: white; border: none; padding: 0 16px; border-radius: 8px; font-weight: 700; }
+        .inline-chat-input-bar { display: flex; gap: 10px; background-color: var(--bg-dark); padding: 6px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .inline-chat-input-bar input { flex: 1; border: none; background: transparent; padding: 10px; }
+        .inline-chat-input-bar button { background-color: var(--primary-gold); color: white; border: none; padding: 0 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .inline-chat-input-bar button:active { transform: scale(0.95); }
 
-        .referral-banner { background: linear-gradient(135deg, #1c1303 0%, var(--card-dark) 100%); border: 1px solid var(--primary-gold); border-radius: 14px; padding: 20px; text-align: center; }
-        .referral-link-box { background-color: var(--bg-dark); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
-        .referral-url { font-size: 12px; color: var(--primary-gold); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .copy-btn { background-color: var(--primary-gold); border: none; color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+        /* Referral System Canvas Layout */
+        .referral-banner { background: linear-gradient(145deg, #160e02 0%, var(--card-dark) 100%); border: 1px solid #332003; border-radius: 16px; padding: 22px; text-align: center; }
+        .referral-link-box { background-color: var(--bg-dark); border: 1px solid var(--border-color); padding: 12px 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-top: 16px; gap: 10px; }
+        .referral-url { font-size: 12.5px; color: var(--primary-gold); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: monospace; }
+        .copy-btn { background-color: var(--primary-gold); border: none; color: white; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .copy-btn:active { background-color: var(--hover-gold); }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 64px; background-color: var(--card-dark); border-top: 1px solid var(--border-color); display: flex; align-items: center; z-index: 200; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); background: none; border: none; width: 33.33%; font-size: 11px; font-weight: 600; cursor: pointer; gap: 4px; }
+        /* Bottom Fixed Navigation Menu Bar */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 68px; background-color: var(--card-dark); border-top: 1px solid var(--border-color); display: flex; align-items: center; z-index: 200; box-shadow: 0 -4px 20px rgba(0,0,0,0.5); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); background: none; border: none; width: 33.33%; font-size: 11px; font-weight: 600; cursor: pointer; gap: 5px; transition: color 0.2s; }
         .nav-item.active { color: var(--primary-gold); }
+        .nav-icon { font-size: 20px; }
     </style>
 </head>
 <body>
@@ -102,16 +157,17 @@
         <div class="user-card">
             <div class="avatar" id="avatar-char">U</div>
             <div class="user-meta">
-                <h4 id="user-display-name">Loading Profile...</h4>
+                <h4 id="user-display-name">Syncing Profile...</h4>
                 <span class="badge-premium" id="premium-status">Premium Verified</span>
             </div>
         </div>
+        
         <div class="dashboard-grid">
-            <div class="metric-box">
+            <div class="metric-box" onclick="handleCardNavigation('referrals')">
                 <div id="lbl-wallet-points">My Wallet Points</div>
                 <div id="val-points">0 pts</div>
             </div>
-            <div class="metric-box">
+            <div class="metric-box" onclick="handleCardNavigation('support')">
                 <div id="lbl-active-tickets">Open Tickets</div>
                 <div id="val-tickets">0</div>
             </div>
@@ -131,9 +187,9 @@
                 </div>
                 <div class="form-group">
                     <label id="lbl-desc">Message Description</label>
-                    <textarea id="issueDescription" rows="3" placeholder="Provide problem details..." required></textarea>
+                    <textarea id="issueDescription" rows="4" placeholder="Provide problem details here..." required></textarea>
                 </div>
-                <button type="submit" class="action-button" id="btn-submit-ticket">Launch Ticket</button>
+                <button type="submit" class="action-button" id="btn-submit-ticket">Launch Help Ticket</button>
             </form>
         </div>
 
@@ -143,26 +199,26 @@
     <div id="view-referrals" class="view-section">
         <div class="referral-banner">
             <h3 style="margin: 0 0 8px 0; color: var(--primary-gold);" id="lbl-ref-title">Invite Friends & Earn Points</h3>
-            <p style="margin:0; font-size:13px; color:var(--text-muted);" id="lbl-ref-desc">Earn 500 points instantly for every active community signup.</p>
+            <p style="margin:0; font-size:13px; color:var(--text-muted);" id="lbl-ref-desc">Earn 500 points instantly for every active community signup verified.</p>
             <div class="referral-link-box">
-                <div class="referral-url" id="referral-link-txt">Generating Link...</div>
+                <div class="referral-url" id="referral-link-txt">Generating custom link...</div>
                 <button class="copy-btn" onclick="copyLink()" id="btn-copy">Copy</button>
             </div>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchView('dashboard', this)"><span>📊</span><span id="nav-lbl-dash">Dashboard</span></button>
-        <button class="nav-item" onclick="switchView('support', this)"><span>🛠️</span><span id="nav-lbl-supp">Support</span></button>
-        <button class="nav-item" onclick="switchView('referrals', this)"><span>🎁</span><span id="nav-lbl-ref">Referrals</span></button>
+        <button class="nav-item active" id="nav-btn-dashboard" onclick="switchView('dashboard', this)"><span class="nav-icon">📊</span><span id="nav-lbl-dash">Dashboard</span></button>
+        <button class="nav-item" id="nav-btn-support" onclick="switchView('support', this)"><span class="nav-icon">🛠️</span><span id="nav-lbl-supp">Support</span></button>
+        <button class="nav-item" id="nav-btn-referrals" onclick="switchView('referrals', this)"><span class="nav-icon">🎁</span><span id="nav-lbl-ref">Referrals</span></button>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
-        // CHANGE THIS BACKEND ENDPOINT EXACTLY TO MATCH YOUR PRODUCTION HOIST IP/URL (e.g., PythonAnywhere address)
+        // Point this directly to your hosted server execution URL string context
         const BACKEND_API_URL = "http://localhost:8080"; 
 
-        let userId = "9999999";
+        let userId = "1234567";
         let userName = "Al-faruk Customer";
         let currentLang = 'en';
 
@@ -175,17 +231,26 @@
         document.getElementById('avatar-char').innerText = userName.charAt(0).toUpperCase();
         document.getElementById('referral-link-txt').innerText = `https://t.me/AlFarukSupportBot?start=ref_${userId}`;
 
-        // Long-polling fetch synchronization wrapper to keep communication channels up to date live
+        // Dynamic Card Tap Interceptor Navigation Map
+        function handleCardNavigation(targetTab) {
+            tg.HapticFeedback.impactOccurred('medium'); // Fire native mechanical buzz confirmation
+            const correspondingNavBtn = document.getElementById(`nav-btn-${targetTab}`);
+            if (correspondingNavBtn) {
+                switchView(targetTab, correspondingNavBtn);
+            }
+        }
+
         async function synchroniseEcosystemState() {
             try {
                 const res = await fetch(`${BACKEND_API_URL}/api/user/${userId}`);
+                if(!res.ok) return;
                 const data = await res.json();
                 
                 document.getElementById('val-points').innerText = `${data.points} pts`;
                 document.getElementById('val-tickets').innerText = data.tickets.filter(t => t.status === "Open").length;
                 
                 renderLiveConversations(data.tickets);
-            } catch (e) { console.error("Synchronization delay: ", e); }
+            } catch (e) { console.log("API poll holding... Check server connectivity configuration."); }
         }
 
         function renderLiveConversations(tickets) {
@@ -196,7 +261,6 @@
                 return;
             }
 
-            // If an open conversation thread exists, minimize the input form panel to prevent duplicates
             const activeOpen = tickets.find(t => t.status === "Open");
             if (activeOpen) {
                 document.getElementById('ticket-creation-pod').style.display = "none";
@@ -205,7 +269,7 @@
                     <div class="ticket-chat-wrapper">
                         <div class="ticket-thread-meta">
                             <span>💬 ${activeOpen.category}</span>
-                            <span style="color: var(--primary-gold);">STATUS: ACTIVE</span>
+                            <span style="color: var(--accent-green); letter-spacing: 1px;">● LIVE THREAD</span>
                         </div>
                         <div class="chat-bubble-stream" id="bubble-scroller">
                             ${activeOpen.messages.map(m => `
@@ -213,19 +277,22 @@
                             `).join('')}
                         </div>
                         <div class="inline-chat-input-bar">
-                            <input type="text" id="followUpText" placeholder="Type reply message here..." />
+                            <input type="text" id="followUpText" placeholder="Type message bubble response..." onkeypress="handleChatEnter(event, '${activeOpen.category}')"/>
                             <button onclick="submitFollowUpReply('${activeOpen.category}')">Send</button>
                         </div>
                     </div>
                 `;
                 
-                // Auto-scroll conversational feed to the bottommost message bubble
                 const pane = document.getElementById('bubble-scroller');
                 if (pane) pane.scrollTop = pane.scrollHeight;
             } else {
                 document.getElementById('ticket-creation-pod').style.display = "block";
                 container.innerHTML = "";
             }
+        }
+
+        function handleChatEnter(e, cat) {
+            if(e.key === 'Enter') { submitFollowUpReply(cat); }
         }
 
         async function createNewTicket(event) {
@@ -258,6 +325,51 @@
             synchroniseEcosystemState();
         }
 
+        const translations = {
+            en: {
+                brand: "AL-FARUK HUB", langBtn: "አማርኛ", status: "Premium Member",
+                wallet: "My Wallet Points", openTickets: "Open Tickets",
+                lblIssue: "Choose Category", optTech: "Technical Issue", optGeneral: "General Inquiry",
+                optFeedback: "Feedback", lblDesc: "Message Description", placeholderDesc: "Provide problem details here...",
+                btnSubmit: "Launch Help Ticket", refTitle: "Invite Friends & Earn Points",
+                refDesc: "Earn 500 points instantly for every active community signup verified.",
+                btnCopy: "Copy", navDash: "Dashboard", navSupp: "Support", navRef: "Referrals"
+            },
+            am: {
+                brand: "አል-ፋሩቅ ማዕከል", langBtn: "English", status: "ፕሪሚየም አባል",
+                wallet: "የኪስ ቦርሳ ነጥቦች", openTickets: "ክፍት ቅሬታዎች",
+                lblIssue: "የችግሩ አይነት", optTech: "ቴክኒካዊ ችግር", optGeneral: "አጠቃላይ ጥያቄ",
+                optFeedback: "አስተያየት", lblDesc: "የችግሩ ዝርዝር መግለጫ", placeholderDesc: "እባክዎን የችግሩን ዝርዝር እዚህ ይፃፉ...",
+                btnSubmit: "ጥያቄውን መዝግብ", refTitle: "ጓደኞችን ይጋብዙ እና ነጥቦችን ይሰብስቡ",
+                refDesc: "የግብዣ ሊንክዎን ተጠቅሞ ለሚመዘገብ ለእያንዳንዱ ሰው 500 የሽልማት ነጥብ ያገኛሉ።",
+                btnCopy: "ኮፒ አድርግ", navDash: "ዳሽቦርድ", navSupp: "ድጋፍ", navRef: "ሪፈራል"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'am' : 'en';
+            updateUIStrings();
+        }
+
+        function updateUIStrings() {
+            const t = translations[currentLang];
+            document.getElementById('app-brand').innerText = t.brand;
+            document.getElementById('lang-btn').innerText = t.langBtn;
+            document.getElementById('premium-status').innerText = t.status;
+            document.getElementById('lbl-wallet-points').innerText = t.wallet;
+            document.getElementById('lbl-active-tickets').innerText = t.openTickets;
+            document.getElementById('lbl-issue-type').innerText = t.lblIssue;
+            document.getElementById('lbl-desc').innerText = t.lblDesc;
+            document.getElementById('issueDescription').placeholder = t.placeholderDesc;
+            document.getElementById('btn-submit-ticket').innerText = t.btnSubmit;
+            document.getElementById('lbl-ref-title').innerText = t.refTitle;
+            document.getElementById('lbl-ref-desc').innerText = t.refDesc;
+            document.getElementById('btn-copy').innerText = t.btnCopy;
+            document.getElementById('nav-lbl-dash').innerText = t.navDash;
+            document.getElementById('nav-lbl-supp').innerText = t.navSupp;
+            document.getElementById('nav-lbl-ref').innerText = t.navRef;
+        }
+
         function switchView(viewId, element) {
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -267,11 +379,13 @@
 
         function copyLink() {
             navigator.clipboard.writeText(document.getElementById('referral-link-txt').innerText);
-            alert("Referral link copied!");
+            const btn = document.getElementById('btn-copy');
+            btn.innerText = currentLang === 'en' ? "Copied!" : "ተቀድቷል!";
+            setTimeout(() => { btn.innerText = translations[currentLang].btnCopy; }, 2000);
         }
 
-        // Run recurring checks every 3 seconds to pull live agent responses instantly onto the dashboard
-        setInterval(synchroniseEcosystemState, 3000);
+        setInterval(synchroniseEcosystemState, 2500);
+        updateUIStrings();
         synchroniseEcosystemState();
     </script>
 </body>
